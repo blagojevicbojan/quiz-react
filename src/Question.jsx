@@ -3,7 +3,7 @@ import QuizContext from "./QuizContext";
 import questions from "./data";
 
 const Question = ({ question, ind }) => {
-  const { userAnswers, addUserAnswers } = useContext(QuizContext);
+  const { userAnswers, addUserAnswers, isSend } = useContext(QuizContext);
 
   const handleChangedInput = (e) => {
     addUserAnswers(e.target.value, ind);
@@ -23,6 +23,7 @@ const Question = ({ question, ind }) => {
             value={a}
             name={`question${ind}`}
             checked={userAnswers[ind] === a}
+            disabled={isSend}
             onChange={(event) => handleChangedInput(event)}
           />
           <label>{a}</label>
