@@ -3,20 +3,22 @@ import questions from "./data";
 import FormQuestions from "./FormQuestions";
 import Score from "./Score";
 import Reset from "./Reset";
-import { QuizProvider } from "./QuizContext";
+import QuizContext from "./QuizContext";
+import { useContext } from "react";
 
 function App() {
+  const { isSend } = useContext(QuizContext);
   return (
-    <QuizProvider>
-      <div className="App">
-        <h1>Kviz</h1>
-        <FormQuestions questions={questions} />
+    <div className="App">
+      <h1>Kviz</h1>
+      <FormQuestions questions={questions} />
+      {isSend && (
         <>
           <Score />
           <Reset />
         </>
-      </div>
-    </QuizProvider>
+      )}
+    </div>
   );
 }
 
