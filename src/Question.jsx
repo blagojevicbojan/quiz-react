@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import QuizContext from "./QuizContext";
 
-const Question = ({ question, ind }) => {
+const Question = ({ question, answers, correct, ind }) => {
   const { userAnswers, addUserAnswers, isSend } = useContext(QuizContext);
 
   const handleChangedInput = (e) => {
@@ -13,16 +13,16 @@ const Question = ({ question, ind }) => {
     <div className="question">
       <p>
         <span>{ind + 1}.) </span>
-        {question.question}
+        {question}
       </p>
-      {question.answers.map((a, i) => (
+      {answers.map((a, i) => (
         <div
           key={i}
           style={{
             color:
               isSend && // if send
               userAnswers[ind] === a && // if checked
-              userAnswers[ind] === question.correct // if correct
+              userAnswers[ind] === correct // if correct
                 ? "green"
                 : isSend && userAnswers[ind] === a && "red", // if send && if checked (and if wrong) => 'red'
           }}
@@ -38,6 +38,15 @@ const Question = ({ question, ind }) => {
           <label>{a}</label>
         </div>
       ))}
+      {isSend && (
+        <p
+          style={{
+            color: userAnswers[ind] === correct ? "green" : "red",
+          }}
+        >
+          {userAnswers[ind] === correct ? "Correct!" : "Wrong!"}
+        </p>
+      )}
     </div>
   );
 };
