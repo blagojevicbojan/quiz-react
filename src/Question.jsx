@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import QuizContext from "./QuizContext";
+import questions from "./data";
 
 const Question = ({ question, ind }) => {
   const { userAnswers, addUserAnswers } = useContext(QuizContext);
@@ -21,6 +22,7 @@ const Question = ({ question, ind }) => {
             type="radio"
             value={a}
             name={`question${ind}`}
+            checked={userAnswers[ind] === a}
             onChange={(event) => handleChangedInput(event)}
           />
           <label>{a}</label>

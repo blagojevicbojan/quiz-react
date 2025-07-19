@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import Button from "./Button";
+import QuizContext from "./QuizContext";
 
 const Reset = () => {
-  return <Button>Reset</Button>;
+  const { onReset } = useContext(QuizContext);
+  return <Button handleClick={onReset}>Reset</Button>;
 };
 
 export default Reset;

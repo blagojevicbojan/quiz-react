@@ -25,9 +25,15 @@ export const QuizProvider = ({ children }) => {
     finalScore();
   };
 
+  const onReset = () => {
+    setIsSend(false);
+    setUserAnswers(new Array(questions.length));
+    setScore(0);
+  };
+
   return (
     <QuizContext.Provider
-      value={{ score, isSend, userAnswers, addUserAnswers, sendQuiz }}
+      value={{ score, isSend, userAnswers, addUserAnswers, sendQuiz, onReset }}
     >
       {children}
     </QuizContext.Provider>
