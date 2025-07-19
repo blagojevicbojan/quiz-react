@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import QuizContext from "./QuizContext";
-import questions from "./data";
 
 const Question = ({ question, ind }) => {
   const { userAnswers, addUserAnswers, isSend } = useContext(QuizContext);
@@ -17,7 +16,17 @@ const Question = ({ question, ind }) => {
         {question.question}
       </p>
       {question.answers.map((a, i) => (
-        <div key={i}>
+        <div
+          key={i}
+          style={{
+            color:
+              isSend && // if send
+              userAnswers[ind] === a && // if checked
+              userAnswers[ind] === question.correct // if correct
+                ? "green"
+                : isSend && userAnswers[ind] === a && "red", // if send && if checked (and if wrong) => 'red'
+          }}
+        >
           <input
             type="radio"
             value={a}
