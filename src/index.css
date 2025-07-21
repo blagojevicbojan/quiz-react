@@ -23,3 +23,7 @@ body {
 .question {
   margin-bottom: 5px;
 }
+
+.timer {
+  color: rgb(197, 18, 18);
+}
