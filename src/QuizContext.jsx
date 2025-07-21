@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useRef, useEffect, useState } from "react";
 import rawQuestions from "./data";
 
 const QuizContext = createContext();
@@ -19,23 +19,33 @@ export const QuizProvider = ({ children }) => {
     setQuestions(shuffled);
   }, []);
 
+  // Timer
+  const DURATION = 60;
+  const [timeLeft, setTimeLeft] = useState(DURATION);
+  const timerRef = useRef(null);
+
+  // Odgovori korisnika
   const addUserAnswers = (answer, ind) => {
     const newArray = [...userAnswers];
     newArray[ind] = answer;
     setUserAnswers((a) => [...newArray]);
   };
 
+  // Rezultat
   const finalScore = () => {
     userAnswers.forEach(
       (a, i) => questions[i].correct === a && setScore((s) => s + 1)
     );
   };
 
+  // Slanje forme kviza
   const sendQuiz = () => {
     setIsSend(true);
+    clearInterval(timerRef.current);
     finalScore();
   };
 
+  // Resetovanje kviza
   const onReset = () => {
     setIsSend(false);
     setUserAnswers(new Array(questions.length));
@@ -57,11 +67,20 @@ export const QuizProvider = ({ children }) => {
     <QuizContext.Provider
       value={{
         score,
+
         isSend,
+
         userAnswers,
+
         addUserAnswers,
+
         sendQuiz,
+
         onReset,
+        timeLeft,
+        setTimeLeft,
+        timerRef,
+
         questions,
       }}
     >
