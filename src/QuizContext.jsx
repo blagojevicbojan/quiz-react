@@ -50,6 +50,7 @@ export const QuizProvider = ({ children }) => {
     setIsSend(false);
     setUserAnswers(new Array(questions.length));
     setScore(0);
+    setTimeLeft(DURATION);
   };
 
   // Shuffle array
@@ -67,20 +68,14 @@ export const QuizProvider = ({ children }) => {
     <QuizContext.Provider
       value={{
         score,
-
         isSend,
-
         userAnswers,
-
         addUserAnswers,
-
         sendQuiz,
-
         onReset,
         timeLeft,
         setTimeLeft,
         timerRef,
-
         questions,
       }}
     >
